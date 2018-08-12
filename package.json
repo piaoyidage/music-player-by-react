@@ -27,6 +27,7 @@
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
+    "jplayer": "^2.9.2",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
@@ -92,6 +93,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "jquery": "^3.3.1",
     "less": "^3.8.1",
     "less-loader": "^4.1.0"
   }

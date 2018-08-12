@@ -3980,6 +3980,16 @@ jest@20.0.4:
   dependencies:
     jest-cli "^20.0.4"
 
+jplayer@^2.9.2:
+  version "2.9.2"
+  resolved "http://registry.npm.taobao.org/jplayer/download/jplayer-2.9.2.tgz#5a4c752ef8ea68646a5d277c3ccbcef2df389d86"
+  dependencies:
+    jquery ">1.7.0"
+
+jquery@>1.7.0, jquery@^3.3.1:
+  version "3.3.1"
+  resolved "http://registry.npm.taobao.org/jquery/download/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+
 js-base64@^2.1.9:
   version "2.4.8"
   resolved "http://172.16.116.19:7001/js-base64/download/js-base64-2.4.8.tgz#57a9b130888f956834aa40c5b165ba59c758f033"
