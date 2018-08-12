@@ -8,6 +8,8 @@ import Progress from './components/Progress'
 import style from './App.less'
 import mp3Demo from './static/music/魔鬼中的天使.mp3'
 
+let duration = 0
+
 class App extends Component {
     constructor(props) {
         super(props)
@@ -30,6 +32,7 @@ class App extends Component {
             vmode: 'window',
         })
         .bind($.jPlayer.event.timeupdate, e => {
+            duration = e.jPlayer.status.duration
             this.setState({
                 progress: e.jPlayer.status.currentPercentAbsolute,
             })
@@ -41,13 +44,18 @@ class App extends Component {
         $("#player").unbind($.jPlayer.event.timeupdate)
     }
 
+    // 改变进度条
+    handleChangeProgress = percent => {
+        $("#player").jPlayer('play',duration * percent)
+    }
+
     render() {
         const { progress } = this.state
         return (
             <div className={style.wrap}>
                 <Header />
                 <div id="player"></div>
-                <Progress progress={progress} />
+                <Progress progress={progress} handleChangeProgress={this.handleChangeProgress} />
             </div>
         )
     }

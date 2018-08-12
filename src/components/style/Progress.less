@@ -1,5 +1,15 @@
 .wrap {
-	@padding-length: 20px;
+	@height: 3px;
+	
+	margin-top: 10px;
+	width: 100%;
+	height: @height;
+	background-color: #888;
+	cursor: pointer;
 
-	padding: @padding-length;
+	.current {
+		height: @height;
+		width: 0;
+		background-color: #f00;
+	}
 }

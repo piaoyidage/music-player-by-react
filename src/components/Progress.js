@@ -2,7 +2,7 @@
 * @Author: maoying.hu
 * @Date:   2018-08-12 16:52:52
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-12 18:48:16
+* @Last Modified time: 2018-08-12 19:20:47
 */
 
 import React from 'react'
@@ -16,15 +16,18 @@ class Progress extends React.Component {
 
 	}
 
-	componentDidMount() {
-
+	handleChangeProgress = e => {
+		const progress = this.refs.progress
+		// 计算进度条位置
+		const percent = (e.clientX - progress.getBoundingClientRect().left) / progress.clientWidth
+		this.props.handleChangeProgress && this.props.handleChangeProgress(percent)
 	}
 
 	render() {
 		const { progress } = this.props
  		return (
-			<div className={style.wrap}>
-				{progress}
+			<div className={style.wrap} ref="progress" onClick={this.handleChangeProgress}>
+				<div className={style.current} style={{ width: `${progress}%`}} />
 			</div>
 		)
 	}
