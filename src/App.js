@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import './App.less'
+
+import Header from './components/Header'
+
+import style from './App.less'
 
 class App extends Component {
     render() {
         return (
-            <div className='wrap'>music player</div>
+            <div className={style.wrap}>
+                <Header />
+            </div>
         )
     }
 }
