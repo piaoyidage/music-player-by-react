@@ -23,7 +23,7 @@ class App extends Component {
         $("#player").jPlayer({
             ready(){
                 $(this).jPlayer("setMedia", {
-                    mp3: MusicList[0].url,
+                    mp3: MusicList[3].url,
                 }).jPlayer('play')
             },
             supplied: 'mp3',
@@ -37,7 +37,7 @@ class App extends Component {
             <div className={style.wrap}>
                 <Header />
                 <div id="player"></div>
-                <Player music={MusicList[0]} volume={config.volume} />
+                <Player music={MusicList[3]} volume={config.volume} />
             </div>
         )
     }
