@@ -18,6 +18,16 @@
 yarn add jquery jPlayer
 ```
 
+### 计算进度条
+
+![进度条](./images/progress.png)
+
+百分比计算：
+
+```
+const percent = (e.clientX - node.getBoundingClientRect().left) / node.clientWidth
+```
+
 
 
 ## 参考
