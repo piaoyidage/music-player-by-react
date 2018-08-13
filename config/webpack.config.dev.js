@@ -144,7 +144,7 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
+
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
               // directory for faster rebuilds.
@@ -157,7 +157,7 @@ module.exports = {
           // In production, we use a plugin to extract that CSS to a file, but
           // in development "style" loader enables hot editing of CSS.
           {
-            test: /\.(?:le|c)ss$/,
+            test: /\.css$/,
             use: [
               require.resolve('style-loader'),
               {
@@ -166,12 +166,6 @@ module.exports = {
                   importLoaders: 1,
                   modules: true,
                   localIdentName: "[name]__[local]___[hash:base64:5]",
-                },
-              },
-              {
-                loader: require.resolve('less-loader'),
-                options: {
-                  importLoaders: 1,
                 },
               },
               {
@@ -194,6 +188,90 @@ module.exports = {
                   ],
                 },
               },
+            ],
+          },
+          {
+            test: /\.less$/,
+            exclude: /node_modules/,
+            use: [
+              require.resolve('style-loader'),
+              {
+                loader: require.resolve('css-loader'),
+                options: {
+                  importLoaders: 1,
+                  modules: true,
+                  localIdentName: "[name]__[local]___[hash:base64:5]",
+                },
+              },
+              {
+                loader: require.resolve('less-loader'),
+                options: {
+                  importLoaders: 1,
+                  javascriptEnabled: true,
+                },
+              },
+              {
+                loader: require.resolve('postcss-loader'),
+                options: {
+                  // Necessary for external CSS imports to work
+                  // https://github.com/facebookincubator/create-react-app/issues/2677
+                  ident: 'postcss',
+                  plugins: () => [
+                    require('postcss-flexbugs-fixes'),
+                    autoprefixer({
+                      browsers: [
+                        '>1%',
+                        'last 4 versions',
+                        'Firefox ESR',
+                        'not ie < 9', // React doesn't support IE8 anyway
+                      ],
+                      flexbox: 'no-2009',
+                    }),
+                  ],
+                },
+              },
+            ],
+          },
+          {
+            test: /\.less$/,
+            include: /node_modules/,
+            use: [
+              require.resolve('style-loader'),
+              {
+                loader: require.resolve('css-loader'),
+                options: {
+                  importLoaders: 1,
+                  modules: false,
+                  localIdentName: "[name]__[local]___[hash:base64:5]",
+                },
+              },
+              {
+                loader: require.resolve('less-loader'),
+                options: {
+                  importLoaders: 1,
+                  javascriptEnabled: true,
+                },
+              },
+              // {
+              //   loader: require.resolve('postcss-loader'),
+              //   options: {
+              //     // Necessary for external CSS imports to work
+              //     // https://github.com/facebookincubator/create-react-app/issues/2677
+              //     ident: 'postcss',
+              //     plugins: () => [
+              //       require('postcss-flexbugs-fixes'),
+              //       autoprefixer({
+              //         browsers: [
+              //           '>1%',
+              //           'last 4 versions',
+              //           'Firefox ESR',
+              //           'not ie < 9', // React doesn't support IE8 anyway
+              //         ],
+              //         flexbox: 'no-2009',
+              //       }),
+              //     ],
+              //   },
+              // },
             ],
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.
