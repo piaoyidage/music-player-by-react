@@ -24,10 +24,17 @@ yarn add jquery jPlayer
 
 百分比计算：
 
-```
-const percent = (e.clientX - node.getBoundingClientRect().left) / node.clientWidth
+```js
+const percent = (e.clientX - node.getBoundingClientRect().left) / node.clientWidth;
 ```
 
+### 格式化时间
+
+格式化时间是一个常见的需求，使用 moment 库可以方便快捷进行格式化。例如将 100s 格式化成 mm:ss:
+
+```js
+const time = moment.utc(100 * 1000).format('mm:ss');
+```
 
 
 ## 参考
