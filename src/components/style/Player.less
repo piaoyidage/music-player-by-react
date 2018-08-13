@@ -1,27 +1,30 @@
 .wrap {
-	padding: 20px;
+	padding: 80px;
 
 
 	.ctx {
 		display: flex;
 		align-items: center;
-		background-color: #f6f6f6;
-		width: 800px;
-
-		.control {
-			& > img {
-				width: 60px;
-				height: 60px;
-			}
-		}
-
+		// background-color: #f6f6f6;
+		// width: 800px;
 
 		.progress {
 			display: flex;
-			margin: 0 20px;
+			margin-right: 20px;
+
+			.time {
+				margin-left: 10px;
+				font-size: 14px;
+				color: #888;
+
+				& > span {
+					display: inline-block;
+					width: 36px;
+				}
+			}
 		}
 
-		.volumn {
+		.volume {
 			display: flex;
 
 			& > img {
@@ -30,5 +33,26 @@
 			}
 		}
 		
+	}
+
+	.desc {
+		margin: 20px 0;
+		.music-name {
+			font-size: 20px;
+			font-weight: bolder;
+			margin-right: 10px;
+		}
+
+		.music-author {
+			font-size: 14px;
+			color: #8f8f8f;
+		}
+	}
+
+	.control {
+		margin-top: 20px;
+		& > img:not(:first-child) {
+			margin-left: 16px;
+		}
 	}
 }

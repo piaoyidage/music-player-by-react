@@ -8,6 +8,9 @@ import Player from './components/Player'
 import style from './App.less'
 import MusicList from './static/config'
 
+const config = {
+    volume: 0.1,
+}
 
 class App extends Component {
     constructor(props) {
@@ -15,15 +18,17 @@ class App extends Component {
     }
 
     componentDidMount() {
+        const { volume } = config
         // 初始化，并绑定时间的更新事件
         $("#player").jPlayer({
             ready(){
                 $(this).jPlayer("setMedia", {
                     mp3: MusicList[0].url,
-                }).jPlayer('pause')
+                }).jPlayer('play')
             },
             supplied: 'mp3',
             vmode: 'window',
+            volume: volume,
         })
     }
 
@@ -32,7 +37,7 @@ class App extends Component {
             <div className={style.wrap}>
                 <Header />
                 <div id="player"></div>
-                <Player />
+                <Player music={MusicList[0]} volume={config.volume} />
             </div>
         )
     }
