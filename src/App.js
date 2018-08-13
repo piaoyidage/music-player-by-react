@@ -4,6 +4,7 @@ import jPlayer from 'jplayer'
 
 import Header from './components/Header'
 import Player from './components/Player'
+import PlayList from './components/PlayList'
 
 import style from './App.less'
 import MusicList from './static/config'
@@ -38,6 +39,7 @@ class App extends Component {
                 <Header />
                 <div id="player"></div>
                 <Player music={MusicList[3]} volume={config.volume} />
+                <PlayList />
             </div>
         )
     }
