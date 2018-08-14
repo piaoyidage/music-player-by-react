@@ -242,7 +242,7 @@ module.exports = {
                 options: {
                   importLoaders: 1,
                   modules: false,
-                  localIdentName: "[name]__[local]___[hash:base64:5]",
+                  // localIdentName: "[name]__[local]___[hash:base64:5]",
                 },
               },
               {
