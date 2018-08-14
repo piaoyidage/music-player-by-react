@@ -7,6 +7,8 @@
 
 1. 配置 LESS
 2. 配置 CSS Modules
+3. 配置 antd
+4. 配置 react-router
 
 ## 项目开发
 
@@ -35,6 +37,27 @@ const percent = (e.clientX - node.getBoundingClientRect().left) / node.clientWid
 ```js
 const time = moment.utc(100 * 1000).format('mm:ss');
 ```
+
+### react-router v4
+
+父组件向子组件传参
+
+```jsx
+render() {
+    return (
+        <div className={style.wrap}>
+            <Header />
+            <div id="player"></div>
+            <Route path='/' exact render={props => <Player {...props} {...this.state} />} />
+            <Route path='/music-list' render={props => <PlayList {...props} {...this.state} />} />
+        </div>
+    )
+}
+```
+
+### PubSubJS
+
+使用 PubSubJS 发布订阅实现组件间的通信。
 
 
 ## 参考

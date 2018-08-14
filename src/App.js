@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import $ from 'jquery'
 import jPlayer from 'jplayer'
 import { Route } from 'react-router-dom'
+import PubSub from 'pubsub-js'
 
 import Header from './components/Header'
 import Player from './components/Player'
@@ -19,24 +20,58 @@ class App extends Component {
         super(props)
 
         this.state = {
-            music: MusicList[0],
+            music: MusicList[2],
         }
     }
 
     componentDidMount() {
         const { volume } = config
         const { music } = this.state
+        const { length } = MusicList
         // 初始化，并绑定时间的更新事件
         $("#player").jPlayer({
-            ready(){
-                $(this).jPlayer("setMedia", {
-                    mp3: music.url,
-                }).jPlayer('play')
-            },
             supplied: 'mp3',
             vmode: 'window',
             volume: volume,
         })
+        this.playMusic()
+        PubSub.subscribe('NEXT', () => {
+            const index = this.getMusicIndex()
+            const nextIndx = (index + 1) % length
+            this.setState({
+                music: MusicList[nextIndx],
+            })
+            this.playMusic()
+        })
+        PubSub.subscribe('PREVIOUS', () => {
+            const index = this.getMusicIndex()
+            const previousIndex = (index - 1 + length) % length
+            this.setState({
+                music: MusicList[previousIndex],
+            })
+            this.playMusic()
+        })
+        PubSub.subscribe('PLAY', (msg, music) => {
+            const index = MusicList.findIndex(i => i === music)
+            this.setState({
+                music: MusicList[index],
+            })
+            this.playMusic()
+        })
+    }
+
+    componentWillUnMount() {
+        PubSub.unsubscribe('NEXT')
+        PubSub.unsubscribe('PREVIOUS')
+        PubSub.unsubscribe('PLAY')
+    }
+
+    getMusicIndex = () => MusicList.findIndex(i => i === this.state.music)
+
+    playMusic = () => {
+        $("#player").jPlayer("setMedia", {
+            mp3: this.state.music.url,
+        }).jPlayer('play')
     }
 
     render() {

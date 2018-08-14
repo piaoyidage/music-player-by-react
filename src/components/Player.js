@@ -2,13 +2,15 @@
 * @Author: maoying.hu
 * @Date:   2018-08-12 21:54:05
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-14 14:33:28
+* @Last Modified time: 2018-08-14 20:11:17
 */
 
 import React from 'react'
 import $ from 'jquery'
 import jPlayer from 'jplayer'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
+import PubSub from 'pubsub-js'
 
 import Progress from './Progress'
 
@@ -70,17 +72,23 @@ class Player extends React.Component {
     	const { isPlay } = this.state
     	switch(action) {
     		case 'play':
-        		$("#player").jPlayer('play')
+        		$("#player").jPlayer('pause')
         		this.setState({
         			isPlay: !isPlay,
         		})
     			break
     		case 'pause':
-        		$("#player").jPlayer('pause')
+        		$("#player").jPlayer('play')
         		this.setState({
         			isPlay: !isPlay,
         		})
         		break
+            case 'next':
+                PubSub.publish('NEXT')
+                break
+            case 'previous':
+                PubSub.publish('PREVIOUS')
+                break
         	default:
         		break
     	}
@@ -94,7 +102,7 @@ class Player extends React.Component {
             <div className={style.wrap}>
 
             	<div className={style['music-repo']}>
-            		<a href='/music-list'>前往我的音乐库</a>
+            		<Link to='/music-list'>前往我的音乐库</Link>
             	</div>
 
             	<div className={style.desc}>
