@@ -2,7 +2,7 @@
 * @Author: maoying.hu
 * @Date:   2018-08-13 16:15:13
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-14 20:28:12
+* @Last Modified time: 2018-08-14 22:24:27
 */
 
 import React from 'react'
@@ -12,7 +12,6 @@ import PubSub from 'pubsub-js'
 
 import MusicList from '../static/config.js'
 import style from './style/PlayList.less'
-
 
 class PlayList extends React.Component {
 	constructor(props) {
@@ -29,7 +28,6 @@ class PlayList extends React.Component {
 			{
 				title: '时长',
 				dataIndex: 'duration',
-				render: () => 2,
 			},
 			{
 				title: '操作',
@@ -75,6 +73,14 @@ class PlayList extends React.Component {
 					dataSource={MusicList}
 					columns={this.columns}
 					pagination={false}
+					rowClassName={(record, index) => {
+						const currentIndex = MusicList.findIndex(i => i === this.props.music)
+						if (index === currentIndex) {
+							return style.current
+						}
+						return style.odd
+						// return index % 2  === 0 ? style.odd : style.even
+					}}
 				/>
 				<div className={style['music-repo']}>
             		<Link to='/'>返回播放页面</Link>
