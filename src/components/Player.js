@@ -2,7 +2,7 @@
 * @Author: maoying.hu
 * @Date:   2018-08-12 21:54:05
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-13 16:30:29
+* @Last Modified time: 2018-08-14 14:33:28
 */
 
 import React from 'react'
@@ -29,7 +29,6 @@ function format(second) {
 class Player extends React.Component {
 	constructor(props) {
 		super(props)
-
 		this.state = {
             progress: 0,
             volume: props.volume,

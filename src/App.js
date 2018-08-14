@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
 import jPlayer from 'jplayer'
+import { Route } from 'react-router-dom'
 
 import Header from './components/Header'
 import Player from './components/Player'
@@ -16,15 +17,20 @@ const config = {
 class App extends Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            music: MusicList[0],
+        }
     }
 
     componentDidMount() {
         const { volume } = config
+        const { music } = this.state
         // 初始化，并绑定时间的更新事件
         $("#player").jPlayer({
             ready(){
                 $(this).jPlayer("setMedia", {
-                    mp3: MusicList[3].url,
+                    mp3: music.url,
                 }).jPlayer('play')
             },
             supplied: 'mp3',
@@ -38,8 +44,8 @@ class App extends Component {
             <div className={style.wrap}>
                 <Header />
                 <div id="player"></div>
-                <Player music={MusicList[3]} volume={config.volume} />
-                <PlayList />
+                <Route path='/' exact render={props => <Player {...props} {...this.state} />} />
+                <Route path='/music-list' render={props => <PlayList {...props} {...this.state} />} />
             </div>
         )
     }
