@@ -103,7 +103,7 @@ class App extends Component {
     playMusic = () => {
         $("#player").jPlayer("setMedia", {
             mp3: this.state.music.url,
-        }).jPlayer('play')
+        }).jPlayer('pause')
     }
 
     render() {

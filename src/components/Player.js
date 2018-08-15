@@ -2,7 +2,7 @@
 * @Author: maoying.hu
 * @Date:   2018-08-12 21:54:05
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-15 16:45:16
+* @Last Modified time: 2018-08-15 17:38:28
 */
 
 import React from 'react'
@@ -34,7 +34,7 @@ class Player extends React.Component {
         const { volume } = props
 		this.state = {
             progress: 0,
-            isPlay: true,
+            isPlay: false,
             volume,
         }
 	}
