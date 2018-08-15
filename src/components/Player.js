@@ -2,7 +2,7 @@
 * @Author: maoying.hu
 * @Date:   2018-08-12 21:54:05
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-15 17:38:28
+* @Last Modified time: 2018-08-15 19:14:43
 */
 
 import React from 'react'
@@ -34,7 +34,6 @@ class Player extends React.Component {
         const { volume } = props
 		this.state = {
             progress: 0,
-            isPlay: false,
             volume,
         }
 	}
@@ -76,16 +75,10 @@ class Player extends React.Component {
     	const { isPlay } = this.state
     	switch(action) {
     		case 'play':
-        		$("#player").jPlayer('pause')
-        		this.setState({
-        			isPlay: !isPlay,
-        		})
+                PubSub.publish('PAUSE')
     			break
     		case 'pause':
-        		$("#player").jPlayer('play')
-        		this.setState({
-        			isPlay: !isPlay,
-        		})
+                PubSub.publish('PLAY_CURRENT')
         		break
             case 'next':
                 PubSub.publish('NEXT')
@@ -104,8 +97,8 @@ class Player extends React.Component {
     }
 
     render() {
-        const { progress, volume, isPlay } = this.state
-        const { music: { name, singer }, circle } = this.props
+        const { progress, volume } = this.state
+        const { music: { name, singer }, circle, isPlay } = this.props
         const playJsx = isPlay ?  <img src={iconPlay} alt="播放" data-action="play" /> : <img src={iconPause} alt="暂停" data-action="pause" />
         return (
             <div className={style.wrap}>

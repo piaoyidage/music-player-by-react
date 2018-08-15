@@ -18,8 +18,9 @@ class App extends Component {
 
         this.state = {
             music: MusicList[0],
+            isPlay: false,
             circle: 1,
-            volume: 0.2,
+            volume: 0.6,
         }
     }
 
@@ -53,8 +54,8 @@ class App extends Component {
             const index = MusicList.findIndex(i => i === music)
             this.setState({
                 music: MusicList[index],
-            })
-            this.playMusic()
+                isPlay: true,
+            }, () => this.playMusic())
         })
         PubSub.subscribe('CIRCLE', (msg, circle) => {
             this.setState({
@@ -89,6 +90,19 @@ class App extends Component {
             }
             this.playMusic()
         })
+        PubSub.subscribe('PAUSE', () => {
+            $("#player").jPlayer('pause')
+            this.setState({
+                isPlay: false,
+            })
+        })
+        PubSub.subscribe('PLAY_CURRENT', () => {
+            $("#player").jPlayer('play')
+            this.setState({
+                isPlay: true,
+            })
+        })
+
     }
 
     componentWillUnMount() {
@@ -96,14 +110,17 @@ class App extends Component {
         PubSub.unsubscribe('PREVIOUS')
         PubSub.unsubscribe('PLAY')
         PubSub.unsubscribe('CIRCLE')
+        PubSub.unsubscribe('PAUSE')
+        PubSub.unsubscribe('PLAY_CURRENT')
     }
 
     getMusicIndex = () => MusicList.findIndex(i => i === this.state.music)
 
     playMusic = () => {
+        const playState = this.state.isPlay ? 'play' : 'pause'
         $("#player").jPlayer("setMedia", {
             mp3: this.state.music.url,
-        }).jPlayer('pause')
+        }).jPlayer(playState)
     }
 
     render() {
