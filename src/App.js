@@ -107,12 +107,13 @@ class App extends Component {
     }
 
     render() {
+        const prefix = process.env.PUBLIC_URL
         return (
             <div className={style.wrap}>
                 <Header />
                 <div id="player"></div>
-                <Route path='/' exact render={props => <Player {...props} {...this.state} />} />
-                <Route path='/music-list' render={props => <PlayList {...props} {...this.state} />} />
+                <Route path={`${prefix}/`} render={props => <Player {...props} {...this.state} />} />
+                <Route path={`${prefix}/music-list`} render={props => <PlayList {...props} {...this.state} />} />
             </div>
         )
     }
