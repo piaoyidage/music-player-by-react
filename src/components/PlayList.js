@@ -2,7 +2,7 @@
 * @Author: maoying.hu
 * @Date:   2018-08-13 16:15:13
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-14 22:24:27
+* @Last Modified time: 2018-08-14 22:59:10
 */
 
 import React from 'react'
@@ -57,8 +57,12 @@ class PlayList extends React.Component {
 				PubSub.publish('PLAY', music)
 				break
 			case 'download':
+				window.location.href = music.url
 				break
 			case 'delete':
+				// 模拟删除
+				MusicList.splice(MusicList.findIndex(i => i === music), 1)
+				this.setState({})
 				break
 			default:
 				break

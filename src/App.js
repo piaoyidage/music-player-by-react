@@ -11,22 +11,20 @@ import PlayList from './components/PlayList'
 import style from './App.less'
 import MusicList from './static/config'
 
-const config = {
-    volume: 0.1,
-}
 
 class App extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            music: MusicList[2],
+            music: MusicList[0],
+            circle: 0,
+            volume: 0.2,
         }
     }
 
     componentDidMount() {
-        const { volume } = config
-        const { music } = this.state
+        const { music, volume } = this.state
         const { length } = MusicList
         // 初始化，并绑定时间的更新事件
         $("#player").jPlayer({
@@ -58,12 +56,46 @@ class App extends Component {
             })
             this.playMusic()
         })
+        PubSub.subscribe('CIRCLE', (msg, circle) => {
+            this.setState({
+                circle: circle,
+            })
+        })
+        PubSub.subscribe('NEXT_CIRCLE', (msg, music) => {
+            const { circle } = this.state
+            const index = MusicList.findIndex(i => i === music)
+            const nextIndx = (index + 1) % length
+            switch(circle) {
+                case 0:
+                    // 单曲循环
+                    this.setState({
+                        music: MusicList[index],
+                    })
+                    break
+                case 1:
+                    // 全部循环
+                    this.setState({
+                        music: MusicList[nextIndx],
+                    })
+                    break
+                case 2:
+                    // 随机播放
+                    this.setState({
+                        music: MusicList[Math.floor(Math.random() * length)]
+                    })
+                    break
+                default:
+                    break
+            }
+            this.playMusic()
+        })
     }
 
     componentWillUnMount() {
         PubSub.unsubscribe('NEXT')
         PubSub.unsubscribe('PREVIOUS')
         PubSub.unsubscribe('PLAY')
+        PubSub.unsubscribe('CIRCLE')
     }
 
     getMusicIndex = () => MusicList.findIndex(i => i === this.state.music)

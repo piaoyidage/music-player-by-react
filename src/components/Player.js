@@ -2,7 +2,7 @@
 * @Author: maoying.hu
 * @Date:   2018-08-12 21:54:05
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-14 20:11:17
+* @Last Modified time: 2018-08-15 13:31:29
 */
 
 import React from 'react'
@@ -28,13 +28,20 @@ function format(second) {
 	return moment.utc(second * 1000).format('mm:ss')
 }
 
+const circleIcon = {
+    0: iconNext,
+    1: iconPlay,
+    2: iconPrevious,
+}
+
 class Player extends React.Component {
 	constructor(props) {
 		super(props)
+        const { volume } = props
 		this.state = {
             progress: 0,
-            volume: props.volume,
             isPlay: true,
+            volume,
         }
 	}
 
@@ -45,6 +52,9 @@ class Player extends React.Component {
             this.setState({
                 progress: e.jPlayer.status.currentPercentAbsolute,
             })
+        }).bind($.jPlayer.event.ended, e => {
+            // 根据当前 单曲循环、循环、随机设置播放歌曲
+            PubSub.publish('NEXT_CIRCLE', this.props.music)
         })
     }
 
@@ -94,9 +104,14 @@ class Player extends React.Component {
     	}
     }
 
+    // 控制播放循环
+    handleChangeCircle = e => {
+        PubSub.publish('CIRCLE', (this.props.circle + 1) % 3)
+    }
+
     render() {
         const { progress, volume, isPlay } = this.state
-        const { music: { name, singer } } = this.props
+        const { music: { name, singer }, circle } = this.props
         const playJsx = isPlay ?  <img src={iconPlay} alt="播放" data-action="play" /> : <img src={iconPause} alt="暂停" data-action="pause" />
         return (
             <div className={style.wrap}>
@@ -128,10 +143,17 @@ class Player extends React.Component {
             		</div>
             	</div>
 
-            	<div className={style.control} onClick={this.handleControl}>
-            		<img src={iconPrevious} alt="上一首" data-action="previous" />
-            		{playJsx}
-            		<img src={iconNext} alt="下一首" data-action="next" />
+            	<div className={style.control}>
+                    <div className={style['control-left']} onClick={this.handleControl}>
+                        <img src={iconPrevious} alt="上一首" data-action="previous" />
+                        {playJsx}
+                        <img src={iconNext} alt="下一首" data-action="next" />
+                    </div>
+
+                    <div className={style['control-right']} onClick={this.handleChangeCircle}>
+                        <div className={style[`circle-${circle}`]} />
+                    </div>
+
             	</div>
 
             </div>
