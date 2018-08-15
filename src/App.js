@@ -24,7 +24,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        const { music, volume } = this.state
+        const { volume } = this.state
         const { length } = MusicList
         // 初始化，并绑定时间的更新事件
         $("#player").jPlayer({

@@ -2,7 +2,7 @@
 * @Author: maoying.hu
 * @Date:   2018-08-12 21:54:05
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-15 13:31:29
+* @Last Modified time: 2018-08-15 14:26:22
 */
 
 import React from 'react'
@@ -26,12 +26,6 @@ let duration = 0
 // 格式化时间，将秒转换为 mm:ss 格式
 function format(second) {
 	return moment.utc(second * 1000).format('mm:ss')
-}
-
-const circleIcon = {
-    0: iconNext,
-    1: iconPlay,
-    2: iconPrevious,
 }
 
 class Player extends React.Component {

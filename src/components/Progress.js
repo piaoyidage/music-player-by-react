@@ -2,7 +2,7 @@
 * @Author: maoying.hu
 * @Date:   2018-08-12 16:52:52
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-12 22:51:08
+* @Last Modified time: 2018-08-15 14:26:45
 */
 
 import React from 'react'
@@ -11,11 +11,6 @@ import style from './style/Progress.less'
 
 
 class Progress extends React.Component {
-	constructor(props) {
-		super(props)
-
-	}
-
 	handleChangeProgress = e => {
 		const progress = this.refs.progress
 		// 计算进度条位置

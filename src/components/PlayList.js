@@ -2,7 +2,7 @@
 * @Author: maoying.hu
 * @Date:   2018-08-13 16:15:13
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-14 22:59:10
+* @Last Modified time: 2018-08-15 14:36:36
 */
 
 import React from 'react'
@@ -18,18 +18,22 @@ class PlayList extends React.Component {
 		super(props)
 		this.columns = [
 			{
+				key: 'name',
 				title: '音乐标题',
 				dataIndex: 'name',
 			},
 			{
+				key: 'singer',
 				title: '歌手',
 				dataIndex: 'singer',
 			},
 			{
+				key: 'duration',
 				title: '时长',
 				dataIndex: 'duration',
 			},
 			{
+				key: 'action',
 				title: '操作',
 				render: music => {
 				    return (
@@ -74,6 +78,7 @@ class PlayList extends React.Component {
 		return (
 			<div className={style.wrap}>
 				<Table
+					rowKey="name"
 					dataSource={MusicList}
 					columns={this.columns}
 					pagination={false}
