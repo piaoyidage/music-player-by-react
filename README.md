@@ -60,6 +60,12 @@ render() {
 使用 PubSubJS 发布订阅实现组件间的通信。
 
 
+### TODO
+
+1. 继续优化
+2. 添加歌词的支持
+
+
 ## 参考
 
 1. [Adding SASS or LESS support to create-react-app](https://medium.com/nulogy/how-to-use-css-modules-with-create-react-app-9e44bec2b5c2)
