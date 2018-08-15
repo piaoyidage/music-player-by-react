@@ -112,7 +112,7 @@ class App extends Component {
             <div className={style.wrap}>
                 <Header />
                 <div id="player"></div>
-                <Route path={`${prefix}/`} render={props => <Player {...props} {...this.state} />} />
+                <Route path={`${prefix}/`} exact render={props => <Player {...props} {...this.state} />} />
                 <Route path={`${prefix}/music-list`} render={props => <PlayList {...props} {...this.state} />} />
             </div>
         )

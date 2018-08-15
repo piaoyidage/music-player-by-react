@@ -2,7 +2,7 @@
 * @Author: maoying.hu
 * @Date:   2018-08-12 21:54:05
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-15 14:26:22
+* @Last Modified time: 2018-08-15 16:35:28
 */
 
 import React from 'react'
@@ -106,12 +106,13 @@ class Player extends React.Component {
     render() {
         const { progress, volume, isPlay } = this.state
         const { music: { name, singer }, circle } = this.props
+        const prefix = process.env.PUBLIC_URL
         const playJsx = isPlay ?  <img src={iconPlay} alt="播放" data-action="play" /> : <img src={iconPause} alt="暂停" data-action="pause" />
         return (
             <div className={style.wrap}>
 
             	<div className={style['music-repo']}>
-            		<Link to='/music-list'>前往我的音乐库</Link>
+            		<Link to={`${prefix}/music-list`}>前往我的音乐库</Link>
             	</div>
 
             	<div className={style.desc}>

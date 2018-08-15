@@ -2,7 +2,7 @@
 * @Author: maoying.hu
 * @Date:   2018-08-13 16:15:13
 * @Last Modified by:   maoying.hu
-* @Last Modified time: 2018-08-15 14:36:36
+* @Last Modified time: 2018-08-15 16:36:06
 */
 
 import React from 'react'
@@ -75,6 +75,7 @@ class PlayList extends React.Component {
 
 
 	render() {
+        const prefix = process.env.PUBLIC_URL
 		return (
 			<div className={style.wrap}>
 				<Table
@@ -92,7 +93,7 @@ class PlayList extends React.Component {
 					}}
 				/>
 				<div className={style['music-repo']}>
-            		<Link to='/'>返回播放页面</Link>
+            		<Link to={`${prefix}/`}>返回播放页面</Link>
             	</div>
 			</div>
 		)
