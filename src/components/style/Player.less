@@ -58,13 +58,16 @@
 	}
 
 	.control {
-		margin-top: 20px;
+		// margin-top: 20px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		.control-left {
 			& > img:not(:first-child) {
 				margin-left: 16px;
+			}
+			& > img {
+				cursor: pointer;
 			}
 		}
 
@@ -80,21 +83,27 @@
 				background-image: url('../../static/images/icons.png');
 				width: 64px;
 				height: 64px;
-				transform: scale(0.6);
+				transform: scale(0.5);
+				transition: ease-in-out 0.6s;
+				cursor: pointer;
 			}
 			.circle-1 {
 				background-position: 0px 192px;
 				background-image: url('../../static/images/icons.png');
 				width: 64px;
 				height: 64px;
-				transform: scale(0.6);
+				transform: scale(0.5);
+				transition: ease-in-out 0.6s;
+				cursor: pointer;
 			}
 			.circle-2 {
 				background-position: 0px 128px;
 				background-image: url('../../static/images/icons.png');
 				width: 64px;
 				height: 64px;
-				transform: scale(0.6);
+				transform: scale(0.5);
+				transition: ease-in-out 0.6s;
+				cursor: pointer;
 			}
 		}
 

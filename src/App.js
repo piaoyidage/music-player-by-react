@@ -18,7 +18,7 @@ class App extends Component {
 
         this.state = {
             music: MusicList[0],
-            circle: 0,
+            circle: 1,
             volume: 0.2,
         }
     }
