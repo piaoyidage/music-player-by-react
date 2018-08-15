@@ -7,7 +7,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render((
-	<HashRouter basename={process.env.PUBLIC_URL}>
+	<HashRouter>
 		<App />
 	</HashRouter>
 ), document.getElementById('root'));
