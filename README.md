@@ -60,6 +60,68 @@ render() {
 使用 PubSubJS 发布订阅实现组件间的通信。
 
 
+### 打包
+
+使用 `yarn run build` 打包，然后执行 `git subtree push --prefix=build origin gh-pages`，将 build 文件夹下的内容推送到 gh-pages 分支时，出现如下问题：
+
+```bash
+error: RPC failed; curl 56 LibreSSL SSL_read: SSL_ERROR_SYSCALL, errno 54
+fatal: The remote end hung up unexpectedly
+fatal: The remote end hung up unexpectedly
+Everything up-to-date
+```
+
+google 了下网上的解决方案，这些方案并没有解决我的问题。
+
+换个方式，不将页面部署到 gh-pages 分支，将打包代码放到 master/docs 文件夹下，然后推送到远程仓库，这样也可以实现 gh-pages 的功能。
+
+```bash
+cp -r build/ docs
+```
+
+
+### react-router 问题
+
+因为项目部署在 `http://piaoyidage.github.io/music-player-by-react/`，如果按照如下配置，部署后会匹配不到。
+
+```jsx
+return (
+    <div className={style.wrap}>
+        <Header />
+        <div id="player"></div>
+        <Route path={`/`} render={props => <Player {...props} {...this.state} />} />
+        <Route path={`/music-list`} render={props => <PlayList {...props} {...this.state} />} />
+    </div>
+)
+```
+
+正确的方法是，根据不同环境配置：
+
+```jsx
+const prefix = process.env.PUBLIC_URL
+return (
+    <div className={style.wrap}>
+        <Header />
+        <div id="player"></div>
+        <Route path={`${prefix}/`} render={props => <Player {...props} {...this.state} />} />
+        <Route path={`${prefix}/music-list`} render={props => <PlayList {...props} {...this.state} />} />
+    </div>
+)
+```
+
+上面的这种解决方法也有问题，如果页面内部有跳转，每次都得取一次 `process.env.PUBLIC_URL`，换一种更好的解决方法，在 BrowserRouter 中加一个 basename:
+
+```jsx
+<BrowserRouter basename={process.env.PUBLIC_URL}>
+	<App />
+</BrowserRouter>
+```
+
+### 播放列表页刷新 404
+
+解决方法是，将 BrowserRouter 改为 HashRouter，此时 basename 也不需要设置，需要明白 BrowserRouter 和 HashRouter 的不同。
+
+
 ### TODO
 
 1. 继续优化
